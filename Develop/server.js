@@ -12,7 +12,6 @@ app.listen(PORT, () => {
 })
 
 
-
 //Creates html paths:
 const router = require("express").Router();
 const path = require("path");
@@ -25,3 +24,5 @@ router.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"))
 });
 
+
+ 
