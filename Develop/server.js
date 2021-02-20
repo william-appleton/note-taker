@@ -1,28 +1,19 @@
-//Sets up server
-const express = require("express");
-const app = express();
-const PORT = 8080
+const express = require("express")
+const apiRoutes = require("./routes/apiRoutes")
+const htmlRoutes = require("./routes/htmlRoutes")
 
-app.use(express.static("public"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const app = express()
+const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-    console.log("Server listening on port 8080")
-})
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static("public"))
+app.use("/api", apiRoutes)
+app.use("/", htmlRoutes)
+
+app.listen(PORT, () => console.log("Listening on PORT:" + PORT));
 
 
-//Creates html paths:
-const router = require("express").Router();
-const path = require("path");
-
-router.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/notes.html"))
-})
-
-router.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/index.html"))
-});
 
 
  
